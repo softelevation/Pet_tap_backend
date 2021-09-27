@@ -1,0 +1,50 @@
+doctype html
+html(xmlns='http://www.w3.org/1999/xhtml' xml:lang='en-gb' lang='en-gb')
+  head
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
+    meta(http-equiv='Content-Type' content='text/html; charset=utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
+    meta(name='csrf-token' content='p7KDGowVOP0xNuYgpHWxJDVaF8jOUwugYq9EL6Vn')
+    link(rel='stylesheet' href='./../stylesheets/bootstrap.min.css')
+    link(rel='stylesheet' href='./../stylesheets/style.css')
+    link(rel='preconnect' href='https://fonts.googleapis.com')
+    link(rel='preconnect' href='https://fonts.gstatic.com' crossorigin='')
+    link(href='https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap' rel='stylesheet')
+    link(rel='preconnect' href='https://www.dafontfree.net/embed/Z290aGFtLXJvdW5kZWQtYm9sZCZkYXRhLzQ2L2cvNTg4MDUvR290aGFtUm91bmRlZC1Cb2xkLm90Zg')
+    link(rel='preconnect' href='https://www.dafontfree.net/embed/Z290aGFtLXJvdW5kZWQtbGlnaHQmZGF0YS80Ni9nLzYyODE2L0dvdGhhbVJvdW5kZWQtTGlnaHQub3Rm')
+    title Profile
+  body
+    .pet-wrapper
+      .pet-container
+        .main-header
+          a.tap-link-redirect(href=pettap_link) Tap here to open in Pettap app
+        .pet-header
+          figure
+            img.rounded-circle(src=pet_images)
+        .pet-content-section
+          h2.pet_name_class #{name}
+          p.pet-bread  #{pets_breed}
+          p.pet-desc
+            | #{notes_about_me}
+          h4 Contact My Owner 
+          ul
+            li
+              a(href=owners_phone)
+                img(src='./../images/call-icon.png')
+                p.pet-descc Phone
+            li
+              a(href=pettap_map_link target='_blank')
+                img(src='./../images/map-icon.png')
+                p.pet-descc Address 
+            li
+              a(href=owners_phone_message)
+                img(src='./../images/chat-icon.png')
+                p.pet-descc Message 
+          h4
+            | Thankyou for 
+            br
+            |           looking after me
+          b
+            p.copy-text Pet Tap © COPYRIGHT 2021 | ALL RIGHTS RESERVED 
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')

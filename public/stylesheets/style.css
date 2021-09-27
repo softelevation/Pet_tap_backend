@@ -1,0 +1,130 @@
+body {
+    height: 100%;
+    width: 100%;
+    float: left;
+}
+html {
+    height: 100%;
+}
+.pet-wrapper {
+    background: #E5E5E5;
+      display: table;
+    width: 100%;
+    height: 100%;
+}
+.pet-header figure {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+}
+.pet-header {
+    padding: 20px 0;
+    background: url(./../images/pet-header-bg.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.pet-header figure img {
+    max-width: 45%;
+}
+
+.pet-container{
+    overflow: hidden !important;
+    z-index: 10;
+    transition: all 350ms ease;
+    width: 100%;
+    max-width: 375px;
+    height: 100%;
+    background: #fff;
+    display: table;
+    margin: 0 auto;
+}
+.pet-content-section h2 {
+    text-align: center;
+    text-transform: uppercase;
+    color: #E9138C;
+    font-size: 40px;
+  line-height: 60px;
+    margin: 0;
+}
+p.pet-bread {
+    text-align: center;
+	font-size: 20px;
+	font-family: 'gotham-rounded-bold', sans-serif;
+	font-weight: 600;
+}
+p.pet-desc {
+    text-align: center;
+    padding: 0 30px;
+	font-family: 'gotham-rounded-light', sans-serif;
+	text-transform: capitalize;
+}
+
+p.pet-descc {
+    text-align: center;
+	margin-top: 5px;
+	color: #221F20;
+	font-family: 'gotham-rounded-light', sans-serif;
+}
+
+.pet-content-section h4 {
+    color: #D92D8A;
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 34px;
+    font-size: 26px;
+	font-weight: 600;
+}
+.pet-content-section ul {
+    margin: 0 40px 20px;
+    display: table;
+    padding: 0;
+    text-align: center;
+   
+}
+.pet-content-section li {
+    width: 33%;
+    float: left;
+    list-style-type: none;
+    padding: 0 10px;
+}
+.pet-content-section li img {
+    width: 100%;
+}
+.pet-content-section li a {
+    color: #000;
+    text-decoration: none;
+}
+.pet-content-section li a p {
+    margin-bottom: 0;
+}
+p.copy-text {
+    padding: 0 10px;
+    font-size: 10px;
+    text-align: center;
+    margin: 0;
+    font-family: 'gotham-rounded-bold', sans-serif;
+}
+.pet-content-section {
+    padding-bottom: 50px;
+}
+img.rounded-circle {
+    width: 180px;
+    height: 170px;
+}
+h4 {
+	font-family: 'gotham-rounded-bold', sans-serif;
+}
+.pet_name_class {
+	font-family: 'Bebas Neue', cursive;
+}
+.main-header {
+    background: #e9138c;
+    text-align: center;
+    height: 40px;
+    font-size: 24px;
+}
+a.tap-link-redirect {
+    color: white;
+    font-size: 20px;
+	text-transform: capitalize;
+}
