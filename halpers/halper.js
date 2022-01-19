@@ -56,19 +56,6 @@ class halper {
 		   return result;
 	}
 
-	async sand_sms(mobile,text_message){
-			let plivo = require('plivo');
-      let client = new plivo.Client(
-        'MAMTG5ZWJLMME5NJFMYM',
-        'MGE1NWQ2YjEyYmY2MGFkZWRhZTA1NTNiZGY1M2Ix',
-      );
-      client.messages
-        .create('+1 954-231-6797', mobile, text_message)
-        .then(function (response) {
-          console.log(response);
-        });
-	}
-
 }
 
 module.exports = new halper();

@@ -17,35 +17,28 @@ var storage = multer.diskStorage({
 });
 var upload = multer({ storage: storage }).single('photo');
 
-async function get_extra_field_from_address(input, insert_id) {
-  const NodeGeocoder = require('node-geocoder');
-  const options = {
-    provider: 'google',
-    apiKey: 'add key here', // for Mapquest, OpenCage, Google Premier
-    formatter: null, // 'gpx', 'string', ...
-  };
-  const geocoder = NodeGeocoder(options);
-  const resssssss = await geocoder.geocode(input.pets_address);
-  input.post_Zip_Code = (resssssss[0].zipcode) ? resssssss[0].zipcode : '';
-  input.Suburb = (resssssss[0].city) ? resssssss[0].city : resssssss[0].administrativeLevels.level2short;
-  input.state = (resssssss[0].administrativeLevels.level1long) ? resssssss[0].administrativeLevels.level1long : '';
-  okkkkkkkkkkkk(input);
-  return true;
-}
+
 
 
 async function okkkkkkkkkkkk(input) {
   try {
+	
     const { GoogleSpreadsheet } = require('google-spreadsheet');
-    const creds = require('./../core-gearbox-322710-0ed8d05668b8.json');
-    const doc = new GoogleSpreadsheet(
-      '',
-    );
+    const creds = require('./../healthy-wares-327509-5cc576ff49ec.json');
+    const doc = new GoogleSpreadsheet(creds.google_GoogleSpreadsheet);
+	
     await doc.useServiceAccountAuth({
       client_email: creds.client_email,
       private_key: creds.private_key,
     });
+
+    // console.log(input);
+	
     await doc.loadInfo(); // loads document properties and worksheets
+	
+	// console.log(doc.title);
+  // console.log('222222222222');
+	
     const sheet = doc.sheetsByIndex[0];
     const larryRow = await sheet.addRow({
       Pets_Name: input.pets_name,
@@ -59,9 +52,29 @@ async function okkkkkkkkkkkk(input) {
     });
     return true;
   } catch (err) {
+    console.log(err);
     return false;
   }
 }
+
+
+async function get_extra_field_from_address(input) {
+  const NodeGeocoder = require('node-geocoder');
+  const creds = require('./../healthy-wares-327509-5cc576ff49ec.json');
+  const options = {
+    provider: 'google',
+    apiKey: creds.google_apiKey, // for Mapquest, OpenCage, Google Premier
+    formatter: null, // 'gpx', 'string', ...
+  };
+  const geocoder = NodeGeocoder(options);
+  const resssssss = await geocoder.geocode(input.pets_address);
+  input.post_Zip_Code = (resssssss[0].zipcode) ? resssssss[0].zipcode : '';
+  input.Suburb = (resssssss[0].city) ? resssssss[0].city : resssssss[0].administrativeLevels.level2short;
+  input.state = (resssssss[0].administrativeLevels.level1long) ? resssssss[0].administrativeLevels.level1long : '';
+  okkkkkkkkkkkk(input);
+  return true;
+}
+
 
 class userController {
   async registered(req, res, next) {
@@ -88,7 +101,7 @@ class userController {
       // this.google_sheet(inputData);
       // console.log(inputData);
       let result = await qb.insert('pets', inputData);
-      get_extra_field_from_address(inputData, result.insert_id);
+      get_extra_field_from_address(inputData);
       inputData.id = halper.encrypt(result.insert_id.toString(), 'in');
       qb.update('pets', { unique_id: inputData.id }, { id: result.insert_id });
       return res
