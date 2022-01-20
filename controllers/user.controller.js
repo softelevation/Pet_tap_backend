@@ -5,6 +5,7 @@ const dateFormat = require("dateformat");
 const halper = require('../halpers/halper');
 var multer  = require('multer');
 const { promisify } = require('util');
+const { sand } = require('../trait/mail');
 
 const accessTokenSecret = 'youraccesstokensecret';
 var storage = multer.diskStorage({
@@ -114,6 +115,22 @@ class userController {
     }
   }
 
+  async requestPost(req, res, next) {
+    const qb = await db.get_connection();
+    try {
+      let input = req.body.phone_no;
+      sand('aman1921@yopmail.com', 'testing user', `this is my ${input}`);
+      let return_data = { pdf: '/pdffile/pet_tap.pdf' };
+      return res
+        .status(200)
+        .json(halper.api_response(1, 'Tags assign successfully', return_data));
+    } catch (err) {
+      return res.json(halper.api_response(0, 'This is invalid request', err));
+    } finally {
+      qb.disconnect();
+    }
+  }
+
   async assignTag(req, res, next) {
     const qb = await db.get_connection();
     try {
@@ -216,7 +233,6 @@ class userController {
 
   async google_sheet(req, res, next) {
     try {
-    
       return res.json('qqqqqqqqqqqqqqqqqq');
     } catch (err) {
       return false;

@@ -6,6 +6,7 @@ userController = require('../controllers/user.controller');
 
 router.post('/registered',userController.registered);
 router.post('/assign-tag',userController.assignTag);
+router.post('/request', userController.requestPost);
 router.get('/pet-tag/:id',userController.pettag);
 router.get('/pets',userController.pettagAll);
 router.get('/google_sheet',userController.google_sheet);
