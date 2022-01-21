@@ -40,7 +40,31 @@ class halper {
 			}
 	}
 
-
+	
+	find_one(inputArray, my_key = null) {
+		let response = Object();
+		if (inputArray.length) {
+		  response = inputArray.find(Boolean);
+		  if (my_key) {
+			return response[my_key];
+		  }
+		}
+		return response;
+	  }
+	  
+	  check_obj(myObj, key = null) {
+		if (key) {
+		  return myObj.hasOwnProperty(key) ? true : false;
+		} else {
+		  return myObj && // 👈 null and undefined check
+			Object.keys(myObj).length === 0 &&
+			Object.getPrototypeOf(myObj) === Object.prototype
+			? false
+			: true;
+		}
+	  }
+  
+  
 	api_response(status,message,data){
 		
 		return {

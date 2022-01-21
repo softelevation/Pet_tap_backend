@@ -118,12 +118,20 @@ class userController {
   async requestPost(req, res, next) {
     const qb = await db.get_connection();
     try {
-      let input = req.body.phone_no;
-      sand('aman1921@yopmail.com', 'testing user', `this is my ${input}`);
-      let return_data = { pdf: '/pdffile/pet_tap.pdf' };
-      return res
-        .status(200)
-        .json(halper.api_response(1, 'Tags assign successfully', return_data));
+      let input = req.body.owners_phone;
+	  let pets = await qb.select('*').from('pets').where('owners_phone', input).limit(1).get();
+	  pets = halper.find_one(pets);
+	  if(halper.check_obj(pets)){
+		  sand('aman1921@yopmail.com', 'testing user', `this is my ${input}`);
+		  let return_data = { name: pets.pets_name ,pdf: '/pdffile/pet_tap.pdf' };
+		  return res
+			.status(200)
+			.json(halper.api_response(1, 'Request submitted successfully', return_data));
+	  }else{
+		  return res
+			.status(200)
+			.json(halper.api_response(0, 'This is invalid phone no', {}));
+	  }
     } catch (err) {
       return res.json(halper.api_response(0, 'This is invalid request', err));
     } finally {
