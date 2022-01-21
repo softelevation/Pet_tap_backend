@@ -6,6 +6,7 @@ const halper = require('../halpers/halper');
 var multer  = require('multer');
 const { promisify } = require('util');
 const { sand } = require('../trait/mail');
+const { user_registration } = require('../trait/mail_template');
 
 const accessTokenSecret = 'youraccesstokensecret';
 var storage = multer.diskStorage({
@@ -122,7 +123,7 @@ class userController {
 	  let pets = await qb.select('*').from('pets').where('owners_phone', input).limit(1).get();
 	  pets = halper.find_one(pets);
 	  if(halper.check_obj(pets)){
-		  sand('aman1921@yopmail.com', 'testing user', `this is my ${input}`);
+		  sand('aman1921@yopmail.com', 'Pet lost information', user_registration(input));
 		  let return_data = { name: pets.pets_name ,pdf: '/pdffile/pet_tap.pdf' };
 		  return res
 			.status(200)
