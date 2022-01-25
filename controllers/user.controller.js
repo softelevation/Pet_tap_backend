@@ -7,6 +7,12 @@ var multer  = require('multer');
 const { promisify } = require('util');
 const { sand } = require('../trait/mail');
 const { user_registration } = require('../trait/mail_template');
+var ejs = require('ejs');
+var fs = require('fs');
+var rn = require('random-number');
+var global = require('./index');
+
+
 
 const accessTokenSecret = 'youraccesstokensecret';
 var storage = multer.diskStorage({
@@ -118,13 +124,38 @@ class userController {
 
   async requestPost(req, res, next) {
     const qb = await db.get_connection();
-    try {
+    // try {
       let input = req.body.owners_phone;
 	  let pets = await qb.select('*').from('pets').where('owners_phone', input).limit(1).get();
 	  pets = halper.find_one(pets);
 	  if(halper.check_obj(pets)){
-		  sand('aman1921@yopmail.com', 'Pet lost information', user_registration(input));
-		  let return_data = { name: pets.pets_name ,pdf: '/pdffile/pet_tap.pdf' };
+		  // sand('aman1921@yopmail.com', 'Pet lost information', user_registration(input));
+      let pass_word = input + rn({ min: 11111111, max: 99999999, integer: true });
+		  let return_data = { name: pets.pets_name, pdf: `/pdf/${pass_word}.pdf` };
+		  var appointMentObj = {
+        title: 'Express',
+        name: pets.pets_name,
+        pet_images: `./../${pets.photo}`,
+        owners_phone: `tel:${pets.owners_phone}`,
+        notes_about_me: pets.notes_about_me,
+        pets_breed: pets.pets_breed,
+        owners_phone_message: `sms://${pets.owners_phone}`,
+        pettap_link: `pettap://app/pet-details/${pets.id}`,
+        pettap_map_link: `https://www.google.com/maps/?q=${pets.lat},${pets.lng}`,
+      };
+		  var contents = fs.readFileSync('./views/indexEJS.ejs', 'utf8');
+		  var html = ejs.render(contents, appointMentObj);
+		  global.createPDFFile(html, pass_word + '.pdf', function (err, result) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('PDF URL ADDED.');
+          // res.send(result);
+        }
+      });
+
+		   
+
 		  return res
 			.status(200)
 			.json(halper.api_response(1, 'Request submitted successfully', return_data));
@@ -133,11 +164,11 @@ class userController {
 			.status(200)
 			.json(halper.api_response(0, 'This is invalid phone no', {}));
 	  }
-    } catch (err) {
-      return res.json(halper.api_response(0, 'This is invalid request', err));
-    } finally {
-      qb.disconnect();
-    }
+    // } catch (err) {
+    //   return res.json(halper.api_response(0, 'This is invalid request', err));
+    // } finally {
+    //   qb.disconnect();
+    // }
   }
 
   async assignTag(req, res, next) {

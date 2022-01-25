@@ -12,9 +12,11 @@
     "dateformat": "^4.5.1",
     "debug": "~2.6.9",
     "dotenv": "^10.0.0",
+    "ejs": "^3.1.6",
     "express": "~4.16.1",
     "google-spreadsheet": "^3.1.15",
     "googleapis": "^84.0.0",
+    "html-pdf": "^3.0.1",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "jsonwebtoken": "^8.5.1",
@@ -23,6 +25,7 @@
     "node-geocoder": "^3.27.0",
     "node-querybuilder": "^2.1.1",
     "nodemailer": "^6.7.2",
+    "random-number": "^0.0.9",
     "sheetdb-node": "0.0.12"
   }
 }

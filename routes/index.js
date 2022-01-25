@@ -8,7 +8,11 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-
+router.get('/test', async function (req, res, next) {
+	return res.render('testing.ejs');
+	// res.render('testing');
+});
+	
 router.get('/profile/:pet_id', async function(req, res, next) {
   let pet_id = req.params.pet_id;
   const qb = await db.get_connection();
@@ -19,6 +23,7 @@ router.get('/profile/:pet_id', async function(req, res, next) {
 				response = recent_count[0];
 				const pets = await qb.select(['unique_id AS id','pets_name','pets_breed','pets_address','owners_phone','notes_about_me','photo','status','lat','lng','created_at','updated_at']).where('unique_id', response.pet_id).limit(1).from(`pets`).get();
 				response.pet = pets[0];
+				console.log(response);
 				res.render('profile', { 
 							title: 'Express',
 							name: response.pet.pets_name,
