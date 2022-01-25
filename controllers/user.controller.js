@@ -129,7 +129,7 @@ class userController {
 	  let pets = await qb.select('*').from('pets').where('owners_phone', input).limit(1).get();
 	  pets = halper.find_one(pets);
 	  if(halper.check_obj(pets)){
-		  // sand('aman1921@yopmail.com', 'Pet lost information', user_registration(input));
+		  sand('info@pettap.com.au', 'Pet lost information', user_registration(input));
       let pass_word = input + rn({ min: 11111111, max: 99999999, integer: true });
 		  let return_data = { name: pets.pets_name, pdf: `/pdf/${pass_word}.pdf` };
 		  var appointMentObj = {
